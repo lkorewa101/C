@@ -1,145 +1,72 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
-struct LinkedList {
-    char* name;
-    struct LinkedList* next;
+// 스택 노드 정의
+struct Node {
+    int data;
+    struct Node* next;
 };
 
-typedef struct LinkedList NODE;
-typedef NODE* LINK;
+// 스택 구조체 정의
+struct Stack {
+    struct Node* top;
+};
 
-LINK createNode(char* name);
-LINK append(LINK head, LINK curr);
-int printList(LINK head);
-LINK insertNode(LINK head, LINK newNode, int position);
-LINK deleteNode(LINK head, int position);
-
-LINK createNode(char* name) {
-    LINK curr;
-    curr = (LINK)malloc(sizeof(NODE));
-    if (curr == NULL) {
-        printf("Memory allocation problem!\n");
-        return NULL;
-    }
-    curr->name = (char*)malloc(sizeof(char) * (strlen(name) + 1));
-    strcpy(curr->name, name);
-    curr->next = NULL;
-    return curr;
+// 스택 초기화 함수
+void initialize(struct Stack* stack) {
+    stack->top = NULL;
 }
 
-LINK append(LINK head, LINK curr) {
-    LINK nextNode = head;
-    if (head == NULL) {
-        head = curr;
-        return head;
-    }
-    while (nextNode->next != NULL) {
-        nextNode = nextNode->next;
-    }
-    nextNode->next = curr;
-    return head;
+// 스택이 비어있는지 확인하는 함수
+int isEmpty(struct Stack* stack) {
+    return (stack->top == NULL);
 }
 
-LINK insertNode(LINK head, LINK newNode, int position) {
-    if (position < 1) {
-        printf("Enter a valid position (1 or higher)!\n");
-        return head;
-    }
-
-    if (position == 1) {
-        newNode->next = head;
-        return newNode;
-    }
-
-    LINK current = head;
-    int count = 1;
-    while (current != NULL && count < position - 1) {
-        current = current->next;
-        count++;
-    }
-
-    if (current == NULL) {
-        printf("Position exceeds the number of elements in the list!\n");
-        return head;
-    }
-
-    newNode->next = current->next;
-    current->next = newNode;
-    return head;
+// 스택에 값 삽입하는 함수
+void push(struct Stack* stack, int data) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = data;
+    newNode->next = stack->top;
+    stack->top = newNode;
 }
 
-LINK deleteNode(LINK head, int position) {
-    if (head == NULL) {
-        printf("List is Empty!\n");
-        return NULL;
+// 스택에서 값 인출하는 함수
+int pop(struct Stack* stack) {
+    if (isEmpty(stack)) {
+        printf("queue is Empty!\n");
+        return -1;  // 스택이 비어있을 때는 임의의 값(-1) 반환
     }
 
-    if (position < 1) {
-        printf("Enter a valid position (1 or higher)!\n");
-        return head;
-    }
-
-    LINK temp, current = head;
-
-    if (position == 1) {
-        temp = head;
-        head = head->next;
-        free(temp->name);
-        free(temp);
-        return head;
-    }
-
-    int count = 1;
-    while (current != NULL && count < position - 1) {
-        current = current->next;
-        count++;
-    }
-
-    if (current == NULL || current->next == NULL) {
-        printf("Position exceeds the number of elements in the list!\n");
-        return head;
-    }
-
-    temp = current->next;
-    current->next = temp->next;
-    free(temp->name);
+    struct Node* temp = stack->top;
+    int data = temp->data;
+    stack->top = temp->next;
     free(temp);
-    return head;
+    return data;
 }
 
-int main(void) {
-    char name[30];
-    LINK head = NULL;
-    LINK curr;
-    int position;
+int main() {
+    struct Stack stack;
+    initialize(&stack);
 
-    int menu;
+    int menu, data;
+
     do {
-        printf("Select menu [(1) append (2) delete (3) exit program] : ");
+        printf("Select menu [(1) push (2) pop (3) exit program] : ");
         scanf("%d", &menu);
 
         switch (menu) {
             case 1:
-                printf("Input data >> ");
-                scanf("%s", name);
-                printf("Input location (1 ~ %d) >> ", printList(head) + 1);
-                scanf("%d", &position);
-                curr = createNode(name);
-                head = insertNode(head, curr, position);
-                printList(head);
+                printf("push data >> ");
+                scanf("%d", &data);
+                push(&stack, data);
+                printf("(%d) push\n", data);
                 break;
 
             case 2:
-                if (head == NULL) {
-                    printf("List is Empty!\n");
-                    break;
+                data = pop(&stack);
+                if (data != -1) {
+                    printf("(%d) pop\n", data);
                 }
-                printf("Delete location (1 ~ %d) >> ", printList(head));
-                scanf("%d", &position);
-                head = deleteNode(head, position);
-                printList(head);
                 break;
 
             case 3:
@@ -147,18 +74,9 @@ int main(void) {
 
             default:
                 printf("Enter the right number!\n");
+                break;
         }
     } while (menu != 3);
 
     return 0;
-}
-
-int printList(LINK head) {
-    int cnt = 0;
-    LINK nextNode = head;
-    while (nextNode != NULL) {
-        printf("Node #%d is %s\n", ++cnt, nextNode->name);
-        nextNode = nextNode->next;
-    }
-    return cnt;
 }
