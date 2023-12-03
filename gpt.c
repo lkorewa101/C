@@ -1,28 +1,28 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// ìŠ¤íƒ ë…¸ë“œ ì •ì˜
+// ½ºÅÃ ³ëµå Á¤ÀÇ
 struct Node {
     int data;
     struct Node* next;
 };
 
-// ìŠ¤íƒ êµ¬ì¡°ì²´ ì •ì˜
+// ½ºÅÃ ±¸Á¶Ã¼ Á¤ÀÇ
 struct Stack {
     struct Node* top;
 };
 
-// ìŠ¤íƒ ì´ˆê¸°í™” í•¨ìˆ˜
+// ½ºÅÃ ÃÊ±âÈ­ ÇÔ¼ö
 void initialize(struct Stack* stack) {
     stack->top = NULL;
 }
 
-// ìŠ¤íƒì´ ë¹„ì–´ìžˆëŠ”ì§€ í™•ì¸í•˜ëŠ” í•¨ìˆ˜
+// ½ºÅÃÀÌ ºñ¾îÀÖ´ÂÁö È®ÀÎÇÏ´Â ÇÔ¼ö
 int isEmpty(struct Stack* stack) {
     return (stack->top == NULL);
 }
 
-// ìŠ¤íƒì— ê°’ ì‚½ìž…í•˜ëŠ” í•¨ìˆ˜
+// ½ºÅÃ¿¡ °ª »ðÀÔÇÏ´Â ÇÔ¼ö
 void push(struct Stack* stack, int data) {
     struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
     newNode->data = data;
@@ -30,11 +30,11 @@ void push(struct Stack* stack, int data) {
     stack->top = newNode;
 }
 
-// ìŠ¤íƒì—ì„œ ê°’ ì¸ì¶œí•˜ëŠ” í•¨ìˆ˜
+// ½ºÅÃ¿¡¼­ °ª ÀÎÃâÇÏ´Â ÇÔ¼ö
 int pop(struct Stack* stack) {
     if (isEmpty(stack)) {
         printf("queue is Empty!\n");
-        return -1;  // ìŠ¤íƒì´ ë¹„ì–´ìžˆì„ ë•ŒëŠ” ìž„ì˜ì˜ ê°’(-1) ë°˜í™˜
+        return -1;  // ½ºÅÃÀÌ ºñ¾îÀÖÀ» ¶§´Â ÀÓÀÇÀÇ °ª(-1) ¹ÝÈ¯
     }
 
     struct Node* temp = stack->top;
