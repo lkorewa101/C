@@ -1,22 +1,22 @@
 #include <stdio.h>
 
-// ÇÔ¼ö ¿øÇü ¼±¾ğ
+// í•¨ìˆ˜ ì›í˜• ì„ ì–¸
 int getsum(int n);
 
 int main(void) {
     int max = 0;
 
-    // ¾çÀÇ Á¤¼ö ÀÔ·Â ¹Ş±â
-    printf("1¿¡¼­ n±îÁöÀÇ ÇÕÀ» ±¸ÇÒ nÀ» ÀÔ·ÂÇÏ½Ã¿À. >>");
+    // ì–‘ì˜ ì •ìˆ˜ ì…ë ¥ ë°›ê¸°
+    printf("1ì—ì„œ nê¹Œì§€ì˜ í•©ì„ êµ¬í•  nì„ ì…ë ¥í•˜ì‹œì˜¤. >>");
     scanf("%d", &max);
 
-    // getsum ÇÔ¼ö È£ÃâÇÏ¿© ÇÕ ±¸ÇÏ°í Ãâ·Â
-    printf("1¿¡¼­ %d±îÁöÀÇ ÇÕ: %d\n", max, getsum(max));
+    // getsum í•¨ìˆ˜ í˜¸ì¶œí•˜ì—¬ í•© êµ¬í•˜ê³  ì¶œë ¥
+    printf("1ì—ì„œ %dê¹Œì§€ì˜ í•©: %d\n", max, getsum(max));
 
     return 0;
 }
 
-// getsum ÇÔ¼ö Á¤ÀÇ
+// getsum í•¨ìˆ˜ ì •ì˜
 int getsum(int n) {
     int sum = 0;
     for (int i = 1; i <= n; i++) {
