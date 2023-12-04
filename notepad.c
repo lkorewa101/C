@@ -1,26 +1,36 @@
 #include <stdio.h>
+#include <math.h>
 
-// 함수 원형 선언
-int getsum(int n);
+#define PI 3.141592
 
-int main(void) {
-    int max = 0;
+void printGraph(const char *func, double angle, double value) {
+    int graph = 15 + (int)(value * 10);
 
-    // 양의 정수 입력 받기
-    printf("1에서 n까지의 합을 구할 n을 입력하시오. >>");
-    scanf("%d", &max);
+    printf("%s(%3.0f) %+9.4f", func, angle, value);
 
-    // getsum 함수 호출하여 합 구하고 출력
-    printf("1에서 %d까지의 합: %d\n", max, getsum(max));
-
-    return 0;
+    for (int i = 0; i < graph; i++) {
+        printf(" ");
+    }
+    printf("*\n");
 }
 
-// getsum 함수 정의
-int getsum(int n) {
-    int sum = 0;
-    for (int i = 1; i <= n; i++) {
-        sum += i;
+int main() {
+    double angle, sin_val, cos_val;
+
+    // sin �׷��� ���
+
+    for (angle = 0; angle <= 360; angle += 30) {
+        sin_val = sin((PI * angle) / 180.0);
+        printGraph("sin", angle, sin_val);
     }
-    return sum;
+
+    // cos �׷��� ���
+    printf("\n");
+
+    for (angle = 0; angle <= 360; angle += 30) {
+        cos_val = cos((PI * angle) / 180.0);
+        printGraph("cos", angle, cos_val);
+    }
+
+    return 0;
 }
