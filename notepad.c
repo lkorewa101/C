@@ -1,35 +1,36 @@
 #include <stdio.h>
 #include <math.h>
-
-#define PI 3.141592
-
-void printGraph(const char *func, double angle, double value) {
-    int graph = 15 + (int)(value * 10);
-
-    printf("%s(%3.0f) %+9.4f", func, angle, value);
-
-    for (int i = 0; i < graph; i++) {
-        printf(" ");
-    }
-    printf("*\n");
-}
+#define PI 3.141592 // PI 값을 상수로 지정
 
 int main() {
-    double angle, sin_val, cos_val;
+    int i = 0;
+    int graph = 0;
+    double s = 0;
 
     // sin 그래프 출력
+    for (i = 0; i <= 360; i += 30) {
+        s = sin((PI * i) / 180.0);
+        printf("sin(%3d) %+0.4f", i, s);
 
-    for (angle = 0; angle <= 360; angle += 30) {
-        sin_val = sin((PI * angle) / 180.0);
-        printGraph("sin", angle, sin_val);
+        // 그래프 출력을 위해 여유롭게 10칸 이동하여 출력
+        for (graph = -10; graph < s * 10; graph++) {
+            printf(" ");
+        }
+        printf("*\n");
     }
 
-    // cos 그래프 출력
-    printf("\n");
+    printf("\n"); // sin, cos 그래프 사이의 구분
 
-    for (angle = 0; angle <= 360; angle += 30) {
-        cos_val = cos((PI * angle) / 180.0);
-        printGraph("cos", angle, cos_val);
+    // cos 그래프 출력
+    for (i = 0; i <= 360; i += 30) {
+        s = cos((PI * i) / 180.0);
+        printf("cos(%3d) %+0.4f", i, s);
+
+        // 그래프 출력을 위해 여유롭게 10칸 이동하여 출력
+        for (graph = -10; graph < s * 10; graph++) {
+            printf(" ");
+        }
+        printf("*\n");
     }
 
     return 0;
